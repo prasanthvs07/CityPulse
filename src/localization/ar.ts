@@ -1,0 +1,56 @@
+export const ar = {
+  common: {
+    appName: 'سيتي بالس',
+    registerButton: 'تسجيل',
+    success: 'نجاح',
+    error: 'خطأ',
+    ok: 'موافق',
+    cancel: 'إلغاء',
+    profile: 'الملف الشخصي',
+    eventInfo: 'معلومات الفعالية',
+    signup: 'تسجيل حساب جديد',
+    pleaseLogin: 'الرجاء تسجيل الدخول للمتابعة',
+    passwordPlaceholder: 'كلمة المرور',
+    passwordEmptyError: 'لا يمكن أن تكون كلمة المرور فارغة',
+    usernameEmptyError: 'لا يمكن أن يكون اسم المستخدم فارغًا',
+    usernamePlaceholder: 'اسم المستخدم',
+    genericError: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقًا.',
+    usernameAlreadyTaken: 'اسم المستخدم مستخدم بالفعل',
+    emailAlreadyInUse: 'البريد الإلكتروني مستخدم بالفعل',
+    failedtoDeleteAccount: 'فشل حذف الحساب. يرجى المحاولة مرة أخرى.',
+  },
+  loginScreen: {
+    loginButton: 'دخول',
+    signUpButton: 'تسجيل حساب جديد',
+    guestLoginButton: 'دخول كضيف',
+    apiError: 'فشل تسجيل الدخول. يرجى التحقق من بياناتك.',
+  },
+  signUpScreen: {
+    emailPlaceholder: 'البريد الإلكتروني',
+    reEnterPasswordPlaceholder: 'أعد إدخال كلمة المرور',
+    usernameLengthError: 'يجب أن يكون اسم المستخدم أقل من 12 حرفًا',
+    emailEmptyError: 'البريد الإلكتروني مطلوب',
+    emailInvalidError: 'الرجاء إدخال عنوان بريد إلكتروني صالح',
+    passwordInvalidError: 'يجب أن تتكون كلمة المرور من 4-24 حرفًا، وتحتوي على حرف واحد ورقم واحد على الأقل',
+    passwordMismatchError: 'كلمتا المرور غير متطابقتين',
+    passwordPlaceholder: 'كلمة المرور',
+    registrationSuccess: 'تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.',
+  },
+  homeScreeen: {
+    welcomeMessage: 'أهلاً بك',
+    noEventsFound: 'لم يتم العثور على فعاليات',
+    searchPlaceholder: 'ابحث عن الفعاليات...',
+  },
+  eventDetailsScreen: {
+    title: 'معلومات الفعالية',
+    venue: 'المكان',
+    date: 'التاريخ',
+  },
+  profileScreen: {
+    logout: 'تسجيل خروج',
+    delete: 'حذف',
+    deleteAccount: 'حذف الحساب',
+    deleteAccountConfirmation: 'هل أنت متأكد من رغبتك في حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء.',
+    logoutConfirmation: 'هل أنت متأكد من رغبتك في تسجيل الخروج؟'
+  }
+};

@@ -1,0 +1,56 @@
+export const en = {
+  common: {
+    appName: 'CityPulse',
+    registerButton: 'Register',
+    success: 'Success',
+    error: 'Error',
+    ok: 'OK',
+    cancel: 'Cancel',
+    profile: 'Profile',
+    eventInfo: 'Event Info',
+    signup: 'Sign Up',
+    pleaseLogin: 'Please log in to continue',
+    passwordPlaceholder: 'Password',
+    passwordEmptyError: 'Password cannot be empty',
+    usernameEmptyError: 'Username cannot be empty',
+    usernamePlaceholder: 'Username', 
+    genericError: 'An unexpected error occurred. Please try again later.',
+    usernameAlreadyTaken: 'Username is already taken',
+    emailAlreadyInUse: 'Email is already in use',
+    failedtoDeleteAccount: 'Failed to delete account. Please try again.',
+  },
+  loginScreen: {
+    loginButton: 'Login',
+    signUpButton: 'Sign Up',
+    guestLoginButton: 'Login as Guest',
+    apiError: 'Login failed. Please check your credentials.',
+  },
+  signUpScreen: {
+    emailPlaceholder: 'Email',
+    reEnterPasswordPlaceholder: 'Re-enter Password',
+    usernameLengthError: 'Username must be less than 12 characters',
+    emailEmptyError: 'Email is required',
+    emailInvalidError: 'Please enter a valid email address',
+    passwordInvalidError: 'Password must be 4-24 characters, with at least one letter and one number',
+    passwordMismatchError: 'Passwords do not match',
+    passwordPlaceholder: 'Password',
+    registrationSuccess: 'Registration successful! You can now log in.',
+  },
+  homeScreeen: {
+    welcomeMessage: 'Welcome',
+    noEventsFound: 'No events found',
+    searchPlaceholder: 'Search events...',
+  },
+  eventDetailsScreen: {
+    title: 'Event Info',
+    venue: 'Venue',
+    date: 'Date',
+  },
+  profileScreen: {
+    logout: 'Logout',
+    delete: 'Delete',
+    deleteAccount: 'Delete Account',
+    deleteAccountConfirmation: 'Are you sure you want to delete your account? This action cannot be undone.',
+    logoutConfirmation: 'Are you sure you want to log out?'
+  }
+};
