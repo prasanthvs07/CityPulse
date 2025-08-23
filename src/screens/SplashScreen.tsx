@@ -19,7 +19,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image source={icon} style={theme.commonStyles.logoRegular} />
-      <Text style={styles.appName}>Event App</Text>
+      <Text style={styles.appName}>CityPulse</Text>
     </View>
   );
 };

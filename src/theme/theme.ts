@@ -2,20 +2,20 @@ import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { DesignConstants } from './designConstants';
 
 const colors = {
-  primary: '#5B33F0',
+  primary: '#3108c5ff',
   secondary: '#FFD700',
   tertiary: '#c66606ff',
-  accent: '#A06CD5',
+  accent: '#3108c5ff',
   background: '#F5F5F5',
   surface: '#FFFFFF',
   text: '#2C2C2C',
   textSecondary: '#6B6B6B',
-  border: '#E0E0E0',
+  border: '#878585ff',
   error: '#FF3B30',
   success: '#34C759',
   warning: '#FFCC00',
-  link: '#007AFF',
   disabled: '#919191dd',
+  transparentBg: '#1414143a',
 };
 
 const fontSizes = {

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, TextInput as RNTextInput, View, Text, I18nManager } from 'react-native';
 import { theme } from '../theme/theme';
 import { DesignConstants } from '../theme/designConstants';
+import { useLanguage } from '../context/LanguageContext';
 
 interface CustomTextInputProps {
   label?: string;
@@ -22,7 +23,9 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
   onBlur,
   secureTextEntry = false,
 }) => {
-  const isRTL = I18nManager.isRTL;
+  const { language } = useLanguage();
+  const isRTL = language === 'ar';
+
   const textAlignmentStyle = {
     textAlign: isRTL ? 'right' : 'left',
   };
@@ -31,19 +34,20 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
     <View style={styles.container}>
       {label && <Text style={[styles.label, textAlignmentStyle]}>{label}</Text>}
       <RNTextInput
-        style={[
+        style = {[
           styles.input,
           textAlignmentStyle,
           {
             borderColor: errorMessage ? theme.colors.error : theme.colors.border,
           },
         ]}
-        placeholder={placeholder}
-        placeholderTextColor={theme.colors.textSecondary}
-        value={value}
-        onChangeText={onChangeText}
-        onBlur={onBlur}
-        secureTextEntry={secureTextEntry}
+        placeholder ={ placeholder }
+        placeholderTextColor = { theme.colors.textSecondary }
+        value = { value }
+        onChangeText = { onChangeText }
+        onBlur = { onBlur }
+        secureTextEntry = {secureTextEntry}
+        autoCapitalize = "none"
       />
       {errorMessage && (
         <Text style={[styles.errorLabel, textAlignmentStyle]}>{errorMessage}</Text>

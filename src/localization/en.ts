@@ -14,10 +14,13 @@ export const en = {
     passwordEmptyError: 'Password cannot be empty',
     usernameEmptyError: 'Username cannot be empty',
     usernamePlaceholder: 'Username', 
-    genericError: 'An unexpected error occurred. Please try again later.',
+    genericError: 'An unexpected error occurred.',
     usernameAlreadyTaken: 'Username is already taken',
     emailAlreadyInUse: 'Email is already in use',
     failedtoDeleteAccount: 'Failed to delete account. Please try again.',
+    invalidCredentials: 'Invalid username or password',
+    registrationFailed: 'Registration failed. Please try again.',
+    unknownError: 'An unknown error occurred'
   },
   loginScreen: {
     loginButton: 'Login',

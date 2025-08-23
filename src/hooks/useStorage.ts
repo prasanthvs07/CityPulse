@@ -1,115 +1,120 @@
+// File: src/hooks/useStorage.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useState, useCallback } from 'react';
+import { ErrorType } from '../types/errorType';
+import { User } from '../types/user';
 
-const USERS_KEY = 'all_users';
+export type StorageResult = {
+  success: boolean;
+  error?: ErrorType;
+};
+
+const USERS_KEY = 'users';
+const CURRENT_USER_KEY = 'current_user';
+
+/**
+ * Get all registered users
+ */
+const getAllUsers = async (): Promise<User[]> => {
+  try {
+    const data = await AsyncStorage.getItem(USERS_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error('Error fetching users from storage:', error);
+    return [];
+  }
+};
+
+/**
+ * Save all users
+ */
+const saveUsers = async (users: User[]): Promise<void> => {
+  try {
+    await AsyncStorage.setItem(USERS_KEY, JSON.stringify(users));
+  } catch (error) {
+    console.error('Error saving users:', error);
+  }
+};
+
+/**
+ * Find a user by username
+ */
+const getUser = async (username: string): Promise<User | null> => {
+  const users = await getAllUsers();
+  return users.find((u) => u.username === username) || null;
+};
+
+/**
+ * Add a new user (username & email must be unique)
+ */
+const addUser = async (newUser: Omit<User, 'favorites'>): Promise<StorageResult> => {
+  const users = await getAllUsers();
+
+  if (users.some(u => u.username === newUser.username)) {
+    return { success: false, error: ErrorType.usernameAlreadyTaken };
+  } else if (users.some(u => u.email === newUser.email)) {
+    return { success: false, error: ErrorType.emailAlreadyInUse };
+  }
+
+  users.push({ ...newUser, favorites: [] });
+  await saveUsers(users);
+  return {success: true };
+};
+
+/**
+ * Update an existing user
+ */
+const updateUser = async (updatedUser: User): Promise<void> => {
+  const users = await getAllUsers();
+  const index = users.findIndex((u) => u.username === updatedUser.username);
+
+  if (index !== -1) {
+    users[index] = updatedUser;
+    await saveUsers(users);
+  }
+};
+
+/**
+ * Manage current logged in user
+ */
+const setCurrentUser = async (user: User): Promise<void> => {
+  if (user.username) {
+    await AsyncStorage.setItem(CURRENT_USER_KEY, user.username);
+  } else {
+    await AsyncStorage.removeItem(CURRENT_USER_KEY);
+  }
+};
+
+const getCurrentUser = async (): Promise<User | null> => {
+  const username = await AsyncStorage.getItem(CURRENT_USER_KEY);
+  if (!username) return null;
+
+  return getUser(username);
+};
+
+const deleteUser = async (username: string): Promise<boolean> => {
+  try {
+    const users = await getAllUsers();
+    const updatedUsers = users.filter(user => user.username !== username);
+
+    if (updatedUsers.length < users.length) {
+      await AsyncStorage.setItem(USERS_KEY, JSON.stringify(updatedUsers));
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+};
 
 export const useStorage = () => {
-    const [allUsers, setAllUsers] = useState([]);
-
-    const getAllUsers = async () => {
-        try {
-            const data = await AsyncStorage.getItem(USERS_KEY);
-            const users = data ? JSON.parse(data) : [];
-            setAllUsers(users);
-            return users;
-        } catch (error) {
-            return [];
-        }
-    };
-
-    const getUserData = async (username) => {
-        try {
-            const users = await getAllUsers();
-            const user = users.find(u => u.username === username);
-            return user;
-        } catch (error) {
-            return null;
-        }
-    };
-
-    const saveAllUsers = async (users) => {
-        try {
-            await AsyncStorage.setItem(USERS_KEY, JSON.stringify(users));
-        } catch (error) {
-        }
-    };
-
-    const registerUser = async (newUser) => {
-        const users = await getAllUsers();
-
-        if (users.some(user => user.username === newUser.username)) {
-            return { success: false, key: 'usernameAlreadyTaken' };
-        }
-        if (users.some(user => user.email === newUser.email)) {
-            return { success: false, key: 'emailAlreadyInUse' };
-        }
-
-        const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
-        const userToSave = { ...newUser, id: newId, favorites: [] };
-        const updatedUsers = [...users, userToSave];
-
-        await saveAllUsers(updatedUsers);
-        setAllUsers(updatedUsers);
-        return { success: true, key: 'registrationSuccess', user: userToSave };
-    };
-
-    const authenticateUser = async (username, password) => {
-        const users = await getAllUsers();
-
-        const user = users.find(u =>
-            (u.username.toLowerCase() === username.toLowerCase()) &&
-            u.password === password
-        );
-
-        if (user) {
-            return { success: true, key: 'loginSuccess', user };
-        } else {
-            return { success: false, key: 'invalidCredentials' };
-        }
-    };
-
-    const updateUserData = async (username, updatedFields) => {
-        try {
-            const users = await getAllUsers();
-
-            const userIndex = users.findIndex(u => u.username === username);
-
-            if (userIndex !== -1) {
-                const updatedUsers = [...users];
-                updatedUsers[userIndex] = { ...updatedUsers[userIndex], ...updatedFields };
-
-                await AsyncStorage.setItem(USERS_KEY, JSON.stringify(updatedUsers));
-                setAllUsers(updatedUsers);
-            }
-        } catch (error) {
-        }
-    };
-
-    const deleteUser = useCallback(async (username) => {
-        try {
-            const users = await getAllUsers();
-
-            const updatedUsers = users.filter(user => user.username !== username);
-
-            if (updatedUsers.length < users.length) {
-                await AsyncStorage.setItem(USERS_KEY, JSON.stringify(updatedUsers));
-                setAllUsers(updatedUsers);
-                return true;
-            } else {
-                return false;
-            }
-        } catch (error) {
-            return false;
-        }
-    }, []);
-
-    return {
-        allUsers,
-        registerUser,
-        authenticateUser,
-        getAllUsers,
-        getUserData,
-        updateUserData,
-        deleteUser
-    };
+  return {
+    getAllUsers,
+    getUser,
+    addUser,
+    updateUser,
+    getCurrentUser,
+    setCurrentUser,
+    deleteUser
+  };
 };

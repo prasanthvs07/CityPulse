@@ -11,6 +11,7 @@ import {
 import { theme } from '../theme/theme';
 import { DesignConstants } from '../theme/designConstants';
 import { TransformedEvent } from '../services/apiModels';
+import { useLanguage } from '../context/LanguageContext';
 
 interface EventCardViewProps {
   event: TransformedEvent;
@@ -27,7 +28,8 @@ const EventCardView: React.FC<EventCardViewProps> = ({
   isFavorite,
   style,
 }) => {
-  const isRTL = I18nManager.isRTL;
+  const { language } = useLanguage();
+  const isRTL = language === 'ar';
 
   return (
     <TouchableOpacity
