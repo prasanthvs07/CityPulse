@@ -85,7 +85,7 @@ const commonStyles = StyleSheet.create({
   },
   card: {
     backgroundColor: colors.surface,
-    borderRadius: 8,
+    borderRadius: DesignConstants.BORDER_RADIUS,
     padding: spacing.m,
     shadowColor: colors.text,
     shadowOffset: { width: 0, height: 2 },

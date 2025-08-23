@@ -1,9 +1,10 @@
 import React, { useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, I18nManager } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { theme } from '../theme/theme';
 import { DesignConstants } from '../theme/designConstants';
 import { useProfile } from '../hooks/useProfile';
+import { useLanguage } from '../context/LanguageContext';
 import { useNavigation, useRoute, RouteProp, StackNavigationProp } from '@react-navigation/native';
 
 type ProfileNavigationProp = StackNavigationProp<RootStackParamList, 'Profile'>;
@@ -13,6 +14,11 @@ const ProfileScreen = () => {
   const navigation = useNavigation<ProfileNavigationProp>();
   const { currentUser, handleLogout, handleDeleteAccount } = useProfile();
   const userName = currentUser?.username?.toLowerCase() || '';
+  const { language, i18n } = useLanguage();
+  
+  const isRTL = language === 'ar'
+  const textDirectionStyle = isRTL ? { textAlign: 'right' } : {};
+  const containerDirectionStyle = isRTL ? { alignItems: 'flex-end' } : { alignItems: 'flex-start' };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -21,14 +27,14 @@ const ProfileScreen = () => {
           onPress={handleLogout}
           style={styles.logoutButton}
         >
-          <Text style={styles.logoutButtonText}>Logout</Text>
+          <Text style={styles.logoutButtonText}>{i18n.profileScreen.logout}</Text>
         </TouchableOpacity>
       ),
     });
   }, [navigation, handleLogout]);
 
   return (
-    <SafeAreaView style={theme.commonStyles.safeArea}>
+    <SafeAreaView style={theme.commonStyles.safeArea}>z
       <View style={styles.contentContainer}>
         <Image
           source={require('../../assets/profilePlaceholder.png')}
@@ -36,10 +42,10 @@ const ProfileScreen = () => {
         />
         <Text style={styles.username}>{currentUser?.username || 'Guest'}</Text>
 
-        <View style={styles.emailContainer}>
-          <Text style={styles.emailTitle}>Email</Text>
+        <View style={[styles.emailContainer, containerDirectionStyle]}>
+          <Text style={[styles.emailTitle, textDirectionStyle]}>{i18n.signUpScreen.emailPlaceholder}</Text>
           <View style={styles.emailField}>
-            <Text style={styles.emailText}>{currentUser?.email || 'N/A'}</Text>
+            <Text style={[styles.emailText, textDirectionStyle]}>{currentUser?.email || 'N/A'}</Text>
           </View>
         </View>
 
@@ -48,7 +54,7 @@ const ProfileScreen = () => {
           style={[styles.deleteButton, userName === 'guest' && styles.disabledButton]}
           disabled={userName === 'guest'}
         >
-          <Text style={styles.deleteButtonText}>Delete Account</Text>
+          <Text style={styles.deleteButtonText}>{i18n.profileScreen.deleteAccount}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

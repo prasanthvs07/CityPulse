@@ -1,8 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Alert } from 'react-native';
-// import { useStorage } from '../hooks/useStorage';
-import { useAuth } from './useAuth';
-// import { User } from '../types/user';
+import { useAuth } from '../context/AuthContext';
 
 
 export const useFavorites = () => {

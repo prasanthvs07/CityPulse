@@ -1,4 +1,3 @@
-// File: screens/SignUpScreen.tsx
 import React from 'react';
 import {
   SafeAreaView,
@@ -15,6 +14,7 @@ import CustomButton from '../components/CustomButton';
 import CustomTextInput from '../components/CustomTextInput';
 import icon from '../../assets/splash-icon.png';
 import { useSignUp } from '../hooks/useSignUp';
+import { useLanguage } from '../context/LanguageContext';
 
 const SignUpScreen: React.FC = () => {
   const {
@@ -24,8 +24,8 @@ const SignUpScreen: React.FC = () => {
     errors,
     isValid,
     apiError,
-    i18n,
   } = useSignUp();
+  const { i18n } = useLanguage()
 
   return (
     <SafeAreaView style={theme.commonStyles.safeArea}>
@@ -38,7 +38,6 @@ const SignUpScreen: React.FC = () => {
             <Image source={icon} style={theme.commonStyles.logoRegular} />
             <Text style={styles.appName}>{i18n.common.appName}</Text>
 
-            {/* Username */}
             <Controller
               control={control}
               name="username"
@@ -57,7 +56,6 @@ const SignUpScreen: React.FC = () => {
               )}
             />
 
-            {/* Email */}
             <Controller
               control={control}
               name="email"
@@ -77,7 +75,6 @@ const SignUpScreen: React.FC = () => {
               )}
             />
 
-            {/* Password */}
             <Controller
               control={control}
               name="password"
@@ -99,7 +96,6 @@ const SignUpScreen: React.FC = () => {
               )}
             />
 
-            {/* Re-enter Password */}
             <Controller
               control={control}
               name="reEnterPassword"

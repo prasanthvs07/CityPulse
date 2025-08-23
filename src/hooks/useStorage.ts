@@ -1,4 +1,3 @@
-// File: src/hooks/useStorage.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ErrorType } from '../types/errorType';
 import { User } from '../types/user';
@@ -11,9 +10,7 @@ export type StorageResult = {
 const USERS_KEY = 'users';
 const CURRENT_USER_KEY = 'current_user';
 
-/**
- * Get all registered users
- */
+
 const getAllUsers = async (): Promise<User[]> => {
   try {
     const data = await AsyncStorage.getItem(USERS_KEY);
@@ -24,9 +21,7 @@ const getAllUsers = async (): Promise<User[]> => {
   }
 };
 
-/**
- * Save all users
- */
+
 const saveUsers = async (users: User[]): Promise<void> => {
   try {
     await AsyncStorage.setItem(USERS_KEY, JSON.stringify(users));
@@ -35,17 +30,13 @@ const saveUsers = async (users: User[]): Promise<void> => {
   }
 };
 
-/**
- * Find a user by username
- */
+
 const getUser = async (username: string): Promise<User | null> => {
   const users = await getAllUsers();
   return users.find((u) => u.username === username) || null;
 };
 
-/**
- * Add a new user (username & email must be unique)
- */
+
 const addUser = async (newUser: Omit<User, 'favorites'>): Promise<StorageResult> => {
   const users = await getAllUsers();
 
@@ -60,9 +51,7 @@ const addUser = async (newUser: Omit<User, 'favorites'>): Promise<StorageResult>
   return {success: true };
 };
 
-/**
- * Update an existing user
- */
+
 const updateUser = async (updatedUser: User): Promise<void> => {
   const users = await getAllUsers();
   const index = users.findIndex((u) => u.username === updatedUser.username);
@@ -73,9 +62,7 @@ const updateUser = async (updatedUser: User): Promise<void> => {
   }
 };
 
-/**
- * Manage current logged in user
- */
+
 const setCurrentUser = async (user: User): Promise<void> => {
   if (user.username) {
     await AsyncStorage.setItem(CURRENT_USER_KEY, user.username);

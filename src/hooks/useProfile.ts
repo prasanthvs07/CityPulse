@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { Alert } from 'react-native';
 import { useNavigation, StackActions } from '@react-navigation/native';
-import { useAuth } from '../hooks/useAuth';
 import { useStorage } from '../hooks/useStorage';
 import { useLanguage } from '../context/LanguageContext';
+import { useAuth } from '../context/AuthContext';
 
 export const useProfile = () => {
   const navigation = useNavigation();

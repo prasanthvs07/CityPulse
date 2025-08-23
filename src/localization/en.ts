@@ -54,6 +54,6 @@ export const en = {
     delete: 'Delete',
     deleteAccount: 'Delete Account',
     deleteAccountConfirmation: 'Are you sure you want to delete your account? This action cannot be undone.',
-    logoutConfirmation: 'Are you sure you want to log out?'
-  }
+    logoutConfirmation: 'Are you sure you want to log out?',
+  },
 };

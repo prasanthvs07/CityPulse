@@ -11,14 +11,15 @@ import {
   RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation, useRoute, RouteProp, StackNavigationProp, useFocusEffect} from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp, StackNavigationProp} from '@react-navigation/native';
 import { theme } from '../theme/theme';
 import EventCardView from '../components/EventCardView';
 import { useLanguage } from '../context/LanguageContext';
 import { useHome } from '../hooks/useHome';
 import RootStackParamList from '../navigation/NavigationParams';
 import { useFavorites } from '../hooks/useFavorites';
-import { useAuth } from '../hooks/useAuth';
+// import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../context/AuthContext';
 
 type HomeNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 type HomeRouteProp = RouteProp<RootStackParamList, 'Home'>;
@@ -26,7 +27,7 @@ type HomeRouteProp = RouteProp<RootStackParamList, 'Home'>;
 const HomeScreen = () => {
   const navigation = useNavigation<HomeNavigationProp>();
   const route = useRoute<HomeRouteProp>();
-  const { currentUser, refreshCurrentUser } = useAuth();
+  const { currentUser } = useAuth();
 
   const { language, i18n } = useLanguage();
   const isRTL = language === 'ar';
@@ -44,7 +45,7 @@ const HomeScreen = () => {
     refreshEvents,
   } = useHome();
 
-  const { favorites, toggleFavorite, isFavorite } = useFavorites();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -74,12 +75,6 @@ const HomeScreen = () => {
     });
   }, [navigation, username, i18n, isRTL]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      refreshCurrentUser();
-    }, [refreshCurrentUser])
-  );
-
   return (
     <SafeAreaView style={theme.commonStyles.safeArea}>
       <View style={styles.contentContainer}>
@@ -108,7 +103,6 @@ const HomeScreen = () => {
             renderItem={({ item }) => (
               <EventCardView
                 event={item}
-                //isFavorite={favorites.includes(item.id)}
                 isFavorite = {isFavorite(item.id)}
                 onPress={() =>
                   navigation.navigate('EventDetails', { event: item, username })

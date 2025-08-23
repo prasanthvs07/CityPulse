@@ -1,5 +1,5 @@
 export type User = {
-  username: string;   // Primary key
+  username: string; 
   email: string;
   password: string;
   favorites: string[];

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useAuth } from './useAuth';
 import { StackActions, useNavigation } from '@react-navigation/native';
+import { useAuth } from '../context/AuthContext';
 
 export const useLogin = () => {
   const { login, loginAsGuest } = useAuth();
@@ -12,7 +12,7 @@ export const useLogin = () => {
     if (result.success) {
       navigation.dispatch(StackActions.replace('Home'));
     } else {
-      setApiError(result.message || 'Login failed');
+      setApiError(result.error || 'unknownError');
     }
   };
 
@@ -21,7 +21,7 @@ export const useLogin = () => {
     if (result.success) {
       navigation.dispatch(StackActions.replace('Home'));
     } else {
-      setApiError(result.message || 'Login failed');
+      setApiError('unknownError');
     }
   };
 

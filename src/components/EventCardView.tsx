@@ -31,6 +31,10 @@ const EventCardView: React.FC<EventCardViewProps> = ({
   const { language } = useLanguage();
   const isRTL = language === 'ar';
 
+  const textDirectionStyle = isRTL ? { textAlign: 'right' } : {};
+  const containerDirectionStyle = isRTL ? { alignItems: 'flex-end' } : { alignItems: 'flex-start' };
+  const favoriteIconPositionStyle = { [isRTL ? 'left' : 'right']: 10, };
+  
   return (
     <TouchableOpacity
       style={[
@@ -48,16 +52,16 @@ const EventCardView: React.FC<EventCardViewProps> = ({
         onError={(e) => console.error('Image loading error:', e.nativeEvent.error)}
       />
 
-      <View style={styles.textContainer}>
+      <View style={[styles.textContainer, containerDirectionStyle]}>
         <Text
-          style={[styles.title, isRTL && { textAlign: 'right' }]}
+          style={[styles.title, textDirectionStyle]}
           numberOfLines={2}
           ellipsizeMode="tail"
         >
           {event.title}
         </Text>
         <Text
-          style={[styles.description, isRTL && { textAlign: 'right' }]}
+          style={[styles.description, textDirectionStyle]}
           numberOfLines={1}
           ellipsizeMode="tail"
         >
@@ -65,7 +69,9 @@ const EventCardView: React.FC<EventCardViewProps> = ({
         </Text>
       </View>
 
-      <TouchableOpacity onPress={onToggleFavorite} style={styles.favoriteIcon}>
+      <TouchableOpacity
+       onPress={onToggleFavorite}
+       style={[styles.favoriteIcon, favoriteIconPositionStyle]}>
         <Text style={{ fontSize: 24 }}>{isFavorite ? '❤️' : '🤍'}</Text>
       </TouchableOpacity>
     </TouchableOpacity>
@@ -79,6 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: theme.spacing.m,
     padding: theme.spacing.s,
+    overflow: 'hidden',
   },
   eventImage: {
     width: 80,
@@ -100,6 +107,9 @@ const styles = StyleSheet.create({
   },
   favoriteIcon: {
     justifyContent: 'center',
+    position: 'absolute',
+    top: 10,
+    padding: 5,
     alignItems: 'center',
     marginLeft: theme.spacing.m,
   },
@@ -110,3 +120,4 @@ const styles = StyleSheet.create({
 });
 
 export default EventCardView;
+
