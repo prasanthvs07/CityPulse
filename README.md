@@ -88,7 +88,6 @@ citypulse/
   <img src="assets/screenshots/details1.png" width="200" />
   <img src="assets/screenshots/details2.png" width="200" />
   <img src="assets/screenshots/details3.png" width="200" />
-  <img src="assets/screenshots/details4.png" width="200" />
   <img src="assets/screenshots/details_ar.png" width="200" />
 </p>
 
@@ -98,7 +97,6 @@ citypulse/
   <img src="assets/screenshots/profile2.png" width="200" />
   <img src="assets/screenshots/profile3.png" width="200" />
   <img src="assets/screenshots/profile4.png" width="200" />
-  <img src="assets/screenshots/profile_ar.png" width="200" />
 </p>
 
 
