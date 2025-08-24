@@ -13,6 +13,8 @@ import { theme } from '../theme/theme';
 import { useLanguage } from '../context/LanguageContext';
 import { useFavorites } from '../hooks/useFavorites';
 import RootStackParamList from '../navigation/NavigationParams';
+import MapViewComponent from '../components/MapView';
+import { TransformedEvent } from '../services/apiModels';
 
 type EventDetailsRouteProp = RouteProp<RootStackParamList, 'EventDetails'>;
 type EventDetailsNavigationProp = StackNavigationProp<RootStackParamList, 'EventDetails'>;
@@ -25,6 +27,7 @@ const EventDetailsScreen = () => {
   const { favorites, toggleFavorite, isFavorite } = useFavorites();
 
   const isRTL = language === 'ar';
+  const isLocationValid = event.venueLat &&  event.venueLong;
 
   return (
     <SafeAreaView style={theme.commonStyles.safeArea}>
@@ -61,6 +64,13 @@ const EventDetailsScreen = () => {
             <Text style={[styles.description, isRTL && { textAlign: 'right' }]}>
               {event.fullDescription}
             </Text>
+          )}                    
+          { isLocationValid && (
+            <MapViewComponent
+              latitude={event.venueLat}
+              longitude={event.venueLong}
+              title={i18n.eventDetailsScreen.venue}
+            />
           )}
         </View>
       </ScrollView>

@@ -48,6 +48,9 @@ export const ar = {
     title: 'معلومات الفعالية',
     venue: 'المكان',
     date: 'التاريخ',
+    invalidLocationData: 'بيانات الموقع غير صالحة.',
+    locationOnMap: 'موقع الفعالية',
+    tapToOpenInMaps: 'اضغط للفتح في الخرائط',
   },
   profileScreen: {
     logout: 'تسجيل الخروج',

@@ -19,6 +19,8 @@ const apiService = {
         date: rawEvent.dates?.start?.localDate || '',
         venueName: rawEvent._embedded?.venues?.[0]?.name || '',
         venueCity: rawEvent._embedded?.venues?.[0]?.city?.name || '',
+        venueLat: rawEvent._embedded?.venues?.[0]?.location?.latitude || '',
+        venueLong: rawEvent._embedded?.venues?.[0]?.location?.longitude || '',
       }));
       return transformedEvents;
     } catch (error) {

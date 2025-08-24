@@ -48,6 +48,9 @@ export const en = {
     title: 'Event Info',
     venue: 'Venue',
     date: 'Date',
+    invalidLocationData: 'Invalid location data.',
+    locationOnMap: 'Event Location',
+    tapToOpenInMaps: 'Tap to open in Maps',
   },
   profileScreen: {
     logout: 'Logout',

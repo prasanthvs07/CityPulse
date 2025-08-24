@@ -18,6 +18,7 @@ export interface RawVenue {
   name: string;
   city: { name: string };
   state: { name: string };
+  location : { longitude: string, latitude: string }
 }
 
 export interface RawEvent {
@@ -53,4 +54,6 @@ export interface TransformedEvent {
   date: string;
   venueName: string;
   venueCity: string;
+  venueLat: string;
+  venueLong: string;
 }
