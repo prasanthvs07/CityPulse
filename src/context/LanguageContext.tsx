@@ -21,24 +21,24 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>('en');
+  const [language, setLanguageState] = useState<Language | null>(null);
+  const [isReady, setIsReady] = useState(false);
 
   const translations: Record<Language, Dictionary> = {
     en: en,
     ar: ar,
   };
 
-  const i18n = translations[language];
+  const i18n = language ? translations[language] : en;
 
   const updateLayoutDirection = async (lang: Language) => {
     const isRTL = lang === 'ar';
     if (I18nManager.isRTL !== isRTL) {
       try {
-        I18nManager.forceRTL(isRTL);
         I18nManager.allowRTL(true);
-        await Updates.reloadAsync();
-      } catch (e) {
-      }
+        I18nManager.forceRTL(isRTL);
+        //await Updates.reloadAsync();
+      } catch (e) {}
     }
   };
 
@@ -46,13 +46,12 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     const loadLanguage = async () => {
       try {
         const storedLanguage = await AsyncStorage.getItem('@app_language');
-        if (storedLanguage) {
-          setLanguageState(storedLanguage as Language);
-          updateLayoutDirection(storedLanguage as Language);
-        } else {
-          updateLayoutDirection('en');
-        }
+        const lang = (storedLanguage as Language) || 'en';
+        setLanguageState(lang);
+        await updateLayoutDirection(lang);
       } catch (error) {
+      } finally {
+        setIsReady(true);
       }
     };
     loadLanguage();
@@ -62,13 +61,16 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     try {
       await AsyncStorage.setItem('@app_language', lang);
       setLanguageState(lang);
-      updateLayoutDirection(lang);
-    } catch (error) {
-    }
+      await updateLayoutDirection(lang);
+    } catch (error) {}
   };
 
+  if (!isReady) {
+    return null;
+  }
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, i18n }}>
+    <LanguageContext.Provider value={{ language: language!, setLanguage, i18n }}>
       {children}
     </LanguageContext.Provider>
   );

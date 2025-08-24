@@ -17,7 +17,7 @@ const ProfileScreen = () => {
   const { language, i18n } = useLanguage();
   
   const isRTL = language === 'ar'
-  const textDirectionStyle = isRTL ? { textAlign: 'right' } : {};
+  const textDirectionStyle = isRTL ? { textAlign: 'right' } : { textAlign: 'left' };
   const containerDirectionStyle = isRTL ? { alignItems: 'flex-end' } : { alignItems: 'flex-start' };
 
   useLayoutEffect(() => {
@@ -34,7 +34,7 @@ const ProfileScreen = () => {
   }, [navigation, handleLogout]);
 
   return (
-    <SafeAreaView style={theme.commonStyles.safeArea}>z
+    <SafeAreaView style={theme.commonStyles.safeArea}>
       <View style={styles.contentContainer}>
         <Image
           source={require('../../assets/profilePlaceholder.png')}

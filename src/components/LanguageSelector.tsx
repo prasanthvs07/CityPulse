@@ -8,11 +8,7 @@ const LanguageSelector: React.FC = () => {
   const { language, setLanguage } = useLanguage();
 
   const handleLanguageChange = () => {
-    if (language === 'en') {
-      setLanguage('ar');
-    } else {
-      setLanguage('en');
-    }
+    setLanguage(language === 'en' ? 'ar' : 'en');
   };
 
   const buttonTitle = language === 'en' ? 'Arabic' : 'English';

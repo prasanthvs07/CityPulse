@@ -13,20 +13,25 @@ interface MapViewProps {
 }
 
 const MapViewComponent: React.FC<MapViewProps> = ({ latitude, longitude, title }) => {
-  const { i18n } = useLanguage()
+  const { language, i18n } = useLanguage();
+  const isRTL = language === 'ar';
+  const textAlignStyle = isRTL ? { textAlign: 'right' } : { textAlign: 'left' };
+
   const parsedLatitude = parseFloat(String(latitude));
   const parsedLongitude = parseFloat(String(longitude));
+  const coordinate = { latitude: parsedLatitude, longitude: parsedLongitude };
 
   if (isNaN(parsedLatitude) || isNaN(parsedLongitude)) {
     console.error('Invalid latitude or longitude');
     return (
       <View style={styles.container}>
-        <Text style={styles.errorText}>{i18n.eventDetailsScreen.invalidLocationData}</Text>
+        <Text style={[styles.errorText, textAlignStyle]}>
+          {i18n.eventDetailsScreen.invalidLocationData}
+        </Text>
       </View>
     );
   }
 
-  const coordinate = { latitude: parsedLatitude, longitude: parsedLongitude };
   const handleOpenMap = () => {
     openMap({
       parsedLatitude,
@@ -36,28 +41,31 @@ const MapViewComponent: React.FC<MapViewProps> = ({ latitude, longitude, title }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.mapTitle}>{i18n.eventDetailsScreen.locationOnMap}</Text>
-      <TouchableOpacity onPress={handleOpenMap} style={styles.mapTouchArea}>
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            ...coordinate,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
-          }}
-          scrollEnabled={false}
-          zoomEnabled={false}
-          pitchEnabled={false}
-          rotateEnabled={false}
-        >
-          <Marker
-            coordinate={coordinate}
-            title={title}
-          />
-        </MapView>
-      </TouchableOpacity>
-      <Text style={styles.tapPrompt}>{i18n.eventDetailsScreen.tapToOpenInMaps}</Text>
+    <View style={[styles.container, isRTL && { flexDirection: 'row-reverse' }]}>
+      <View style={{ flex: 1 }}>
+        <Text style={[styles.mapTitle, textAlignStyle]}>
+          {i18n.eventDetailsScreen.locationOnMap}
+        </Text>
+        <TouchableOpacity onPress={handleOpenMap} style={styles.mapTouchArea}>
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              ...coordinate,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005,
+            }}
+            scrollEnabled={false}
+            zoomEnabled={false}
+            pitchEnabled={false}
+            rotateEnabled={false}
+          >
+            <Marker coordinate={coordinate} title={title} />
+          </MapView>
+        </TouchableOpacity>
+        <Text style={[styles.tapPrompt, textAlignStyle]}>
+          {i18n.eventDetailsScreen.tapToOpenInMaps}
+        </Text>
+      </View>
     </View>
   );
 };
