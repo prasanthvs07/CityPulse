@@ -9,6 +9,7 @@ CityPulse is a mobile application designed to help users discover and engage wit
 - **User Authentication**: Users can register for a new account or log in with existing credentials.
 - **Guest Mode**: Explore events without needing to create an account.
 - **Multi-lingual Support**: Fully localized experience with support for **English** and **Arabic**.
+- **Map View**: Displays an event location on an interactive map with a marker. Tapping the marker opens the location in the device's default Maps app (Google Maps / Apple Maps).
 - **Event Discovery**:
 - Browse a paginated list of upcoming events on the Home screen.
 - Search for specific events by city or name.
