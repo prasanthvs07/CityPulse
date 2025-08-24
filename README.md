@@ -65,6 +65,7 @@ citypulse/
   <img src="assets/screenshots/login1.png" width="200" />
   <img src="assets/screenshots/login2.png" width="200" />
   <img src="assets/screenshots/login3.png" width="200" />
+  <img src="assets/screenshots/login_ar.png" width="200" />
 </p>
 
 ### Signup Screen
@@ -72,12 +73,14 @@ citypulse/
   <img src="assets/screenshots/signup1.png" width="200" />
   <img src="assets/screenshots/signup2.png" width="200" />
   <img src="assets/screenshots/signup3.png" width="200" />
+  <img src="assets/screenshots/signup_ar.png" width="200" />
 </p>
 
 ### Home Screen
 <p float="left">
   <img src="assets/screenshots/home1.png" width="200" />
   <img src="assets/screenshots/home2.png" width="200" />
+  <img src="assets/screenshots/home_ar.png" width="200" />
 </p>
 
 ### Event Details Screen
@@ -85,6 +88,8 @@ citypulse/
   <img src="assets/screenshots/details1.png" width="200" />
   <img src="assets/screenshots/details2.png" width="200" />
   <img src="assets/screenshots/details3.png" width="200" />
+  <img src="assets/screenshots/details4.png" width="200" />
+  <img src="assets/screenshots/details_ar.png" width="200" />
 </p>
 
 ### Profile Screen
@@ -93,9 +98,8 @@ citypulse/
   <img src="assets/screenshots/profile2.png" width="200" />
   <img src="assets/screenshots/profile3.png" width="200" />
   <img src="assets/screenshots/profile4.png" width="200" />
+  <img src="assets/screenshots/profile_ar.png" width="200" />
 </p>
-
-
 
 
 
